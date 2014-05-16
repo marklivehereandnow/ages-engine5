@@ -9,7 +9,7 @@ package com.livehereandnow.ages.engine;
 import com.livehereandnow.ages.card.AgesCard;
 import com.livehereandnow.ages.exception.AgesException;
 import com.livehereandnow.ages.field.Field;
-import com.livehereandnow.ages.field.Field.FieldPlayer;
+import com.livehereandnow.ages.field.Player;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +28,7 @@ public class AgesEngine {
 
 //    private EngineCore core;
     private Field field;
-    private FieldPlayer player;
+    private Player player;
     private AgesCard card;
 
     public Field getField() {
@@ -282,7 +282,7 @@ public class AgesEngine {
         switch (keyword) {
             case "upgrade":
             case "u":
-                return actUpgrade(p1,p2);
+                return actUpgrade(p1, p2);
 
             default:
                 System.out.println("Unknown keyword, " + keyword);
@@ -389,7 +389,7 @@ public class AgesEngine {
         field.交換玩家();
         field.getCurrentPlayer().get內政點數().setPoints(2);
         field.交換玩家();
-        System.out.println("Assign initial 內政點數 and 回合");
+//        System.out.println("Assign initial 內政點數 and 回合");
         for (int k = 0; k < 13; k++) {
             field.moveOneCard(field.get時代A內政牌(), 0, field.getCardRow());
         }
@@ -595,7 +595,7 @@ public class AgesEngine {
     }
 
     private boolean actUpgrade(int p1, int p2) {
-        field.getCurrentPlayer().actUpgrade(p1,p2);        
+        field.getCurrentPlayer().actUpgrade(p1, p2);
         return true;
     }
 }

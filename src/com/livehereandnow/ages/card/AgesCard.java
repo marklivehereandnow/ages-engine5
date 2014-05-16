@@ -667,7 +667,7 @@ public class AgesCard implements Serializable {
                 sb8.append("");
                 sb8.append(name);
                 sb8.append(id);
-    
+
                 sb8.append(" 黃");
                 sb8.append(this.tokenYellow);
 
@@ -723,9 +723,8 @@ public class AgesCard implements Serializable {
                 sb3.append(tag);
                 sb3.append("] ");
                 return sb3.toString();
-                
-                //【
-                
+
+            //【
             case 101:// 領袖區
                 StringBuilder sb101 = new StringBuilder();
 //                System.out.println("");
@@ -740,8 +739,8 @@ public class AgesCard implements Serializable {
 
                 sb101.append("】 ");
                 return sb101.toString();
-    
-                        case 102:// 建造中的奇蹟區
+
+            case 102:// 建造中的奇蹟區
                 StringBuilder sb102 = new StringBuilder();
 //                System.out.println("");
                 sb102.append("【");
@@ -750,17 +749,27 @@ public class AgesCard implements Serializable {
                 sb102.append(name);
                 sb102.append(id);
                 sb102.append("-");
-
                 sb102.append(iconPoints);
-
                 sb102.append("】 ");
                 return sb102.toString();
-                
-    
+
+            case 103:// 已完成的奇蹟
+                StringBuilder sb103 = new StringBuilder();
+//                System.out.println("");
+                sb103.append("【");
+                sb103.append(ageStr[age]);
+                sb103.append("");
+                sb103.append(name);
+                sb103.append(id);
+                sb103.append(" 效果=>");
+                sb103.append(effect);
+                sb103.append("】 ");
+                return sb103.toString();
+
             default:
                 StringBuilder sb99 = new StringBuilder();
                 sb99.append("[");
-                
+
                 sb99.append("");
                 sb99.append(name);
                 sb99.append(id);
