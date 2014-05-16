@@ -39,9 +39,14 @@ public class Field {
     private Player currentPlayer;
     private List<Player> allPlayers;
 
+    public List<Player> getAllPlayers() {
+        return allPlayers;
+    }
+
     private Points round;
 
     public void 交換玩家() {
+        
         if (currentPlayer == p1) {
             currentPlayer = p2;
             return;
@@ -50,6 +55,7 @@ public class Field {
             currentPlayer = p1;
 //            System.out.println("auto to next 回合");
             round.addPoints(1);
+            
             return;
         }
 
@@ -199,22 +205,17 @@ public class Field {
         }
     }
 
-    public Field() {
-        initField();
+    public Field() {    
     }
+    
 
     public void reset() {
-        initField();
-        System.out.println(" Field has been reset!");
-    }
-
-    private void initField() {
         //
         round = new Points("回合");
-
+        round.setPoints(0);
         //
-        p1 = new Player("max");
-        p2 = new Player("amy");
+        p1 = new Player("AAA");
+        p2 = new Player("BBB");
         allPlayers = new ArrayList<>();
         allPlayers.add(p1);
         allPlayers.add(p2);

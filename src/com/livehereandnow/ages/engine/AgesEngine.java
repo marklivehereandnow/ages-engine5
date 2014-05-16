@@ -42,6 +42,7 @@ public class AgesEngine {
 
     private void init() {
         field = new Field();
+        field.reset();
     }
 
     String returnStr = " return str...";
@@ -384,15 +385,24 @@ public class AgesEngine {
     }
 
     private boolean doStart() {
-        //System.out.println(" It has been transferred to init() , by Mark 5/12 17:50");
-        field.getCurrentPlayer().get內政點數().setPoints(1);
-        field.交換玩家();
-        field.getCurrentPlayer().get內政點數().setPoints(2);
-        field.交換玩家();
-//        System.out.println("Assign initial 內政點數 and 回合");
+        //
+        field.reset();
+        
+        //卡牌列
         for (int k = 0; k < 13; k++) {
             field.moveOneCard(field.get時代A內政牌(), 0, field.getCardRow());
         }
+        
+        // AAA 內政點數=1, BBB 內政點數=2
+        for (int turnOrder=1;turnOrder<=field.getAllPlayers().size();turnOrder++){
+            Player player=field.getCurrentPlayer();
+            player.get內政點數().setPoints(turnOrder);
+//            player.update回合內政點數回合軍事點數();
+            field.交換玩家();
+        }
+        //
+        //
+        //
         return true;
     }
 
@@ -400,9 +410,9 @@ public class AgesEngine {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
 //        檢測暴動();
-        compute當回合文化();
-        compute當回合科技();
-
+      
+        
+        field.getCurrentPlayer().compute當回合文化and科技and軍力();   
         //執行生產
         field.getCurrentPlayer().produce();
 
@@ -426,15 +436,8 @@ public class AgesEngine {
         return true;
     }
 
-    private void compute當回合文化() {
-        System.out.println("compute當回合文化 ***TODO***");
-        field.getCurrentPlayer().get文化生產_當回合().setPoints(2);
-    }
+  
 
-    private void compute當回合科技() {
-        System.out.println("compute當回合科技 ***TODO***");
-        field.getCurrentPlayer().get科技生產_當回合().setPoints(3);
-    }
 
     private boolean doStatus(int val) {
         field.show(val);

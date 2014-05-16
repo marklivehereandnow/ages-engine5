@@ -219,7 +219,7 @@ public class Player {
         buildList.addAll(農場區);
         buildList.addAll(礦山區);
         buildList.addAll(步兵區);
-//        System.out.println(" checking actBuild, how many cards now?" + buildList.size());
+//        System.out.println(" checking actBuild, how many cards now?" + list.size());
         for (AgesCard card : buildList) {
             if (card.getId() == id) {
                 card.setTokenYellow(card.getTokenYellow() + 1);
@@ -444,9 +444,17 @@ public class Player {
 
             case "實驗室":
             case "神廟區":
+            case "步兵區":
+
+                System.out.println("  ");
+                System.out.print("  " + title + " ");
+                for (AgesCard card : list) {
+                    System.out.print("" + card.toString(104));
+                }
+                break;
+
             case "農場區":
             case "礦山區":
-            case "步兵區":
                 System.out.println("  ");
                 System.out.print("  " + title + " ");
                 for (AgesCard card : list) {
@@ -605,6 +613,54 @@ public class Player {
                 break;
             }
         }
+
+    }
+
+    public void compute當回合文化and科技and軍力() {
+        System.out.println("compute當回合文化and科技");
+        // 1. Prepare source
+        List<AgesCard> list = new ArrayList<>();
+
+//        System.out.println("CURRENTLY ONLY CHECK 已完成的奇蹟");
+        list.addAll(政府區);
+        list.addAll(領袖區);
+        list.addAll(實驗室);
+        list.addAll(神廟區);
+        list.addAll(農場區);
+        list.addAll(步兵區);
+        list.addAll(已完成的奇蹟);
+
+        // 2. Process
+        int 音樂 = 0;
+        int 燈泡 = 0;
+        int 武器 = 0;
+
+        for (AgesCard card : list) {
+            if (card.getTokenYellow() > 0) {
+
+                if (card.getEffectMusic() != 0) {
+                    System.out.println(".....getEffectMusic " + card.toString(103));
+
+                    音樂 += card.getEffectMusic();
+                }
+                if (card.getEffectIdea() != 0) {
+
+                    System.out.println("######getEffectIdea " + card.toString(103));
+                    燈泡 += card.getEffectIdea();
+                }
+                if (card.getEffectWeapon() != 0) {
+
+                    System.out.println("@@@@getEffectWeapon " + card.toString(103));
+                    武器 += card.getEffectWeapon();
+                }
+            }
+
+        }
+
+        // 3. Update result
+        文化生產_當回合.setPoints(音樂);
+        科技生產_當回合.setPoints(燈泡);
+        軍力.setPoints(武器);
 
     }
 

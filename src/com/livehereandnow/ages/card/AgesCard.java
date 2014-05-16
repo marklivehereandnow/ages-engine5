@@ -673,6 +673,9 @@ public class AgesCard implements Serializable {
 
                 sb8.append(" 藍");
                 sb8.append(this.getTokenBlue());
+                sb8.append(" 效果=>");
+                sb8.append(effect);
+    
                 sb8.append("] ");
                 return sb8.toString();
             case 2:// 農場區,礦山區
@@ -765,6 +768,22 @@ public class AgesCard implements Serializable {
                 sb103.append(effect);
                 sb103.append("】 ");
                 return sb103.toString();
+        case 104:// 實驗室 神廟區 步兵區
+                StringBuilder sb104 = new StringBuilder();
+//                System.out.println("");
+                sb104.append("【");
+                sb104.append(ageStr[age]);
+                sb104.append("");
+                sb104.append(name);
+                sb104.append(id);
+                
+                sb104.append(" 黃:");
+                sb104.append(tokenYellow);
+                sb104.append(" #");
+                sb104.append(effect);
+                sb104.append("#");
+                sb104.append("】 ");
+                return sb104.toString();
 
             default:
                 StringBuilder sb99 = new StringBuilder();
