@@ -348,7 +348,7 @@ public class AgesEngine {
         player = field.getCurrentPlayer();
 
 //        目前拿牌不扣內政點
-//        if (player.get內政點數().getPoints() < cardCost[cost]) {
+//        if (player.get內政點數().getVal() < cardCost[cost]) {
 //            System.out.println("NOT ENOUGH 內政點數");
 //            return false;
 //        }
@@ -387,17 +387,17 @@ public class AgesEngine {
     private boolean doStart() {
         //
         field.reset();
-        
+
         //卡牌列
         for (int k = 0; k < 13; k++) {
             field.moveOneCard(field.get時代A內政牌(), 0, field.getCardRow());
         }
-        
+
         // AAA 內政點數=1, BBB 內政點數=2
-        for (int turnOrder=1;turnOrder<=field.getAllPlayers().size();turnOrder++){
-            Player player=field.getCurrentPlayer();
-            player.get內政點數().setPoints(turnOrder);
-//            player.update回合內政點數回合軍事點數();
+        for (int turnOrder = 1; turnOrder <= field.getAllPlayers().size(); turnOrder++) {
+            Player player = field.getCurrentPlayer();
+            player.get內政點數().setVal(turnOrder);
+//            player.update手牌上限();
             field.交換玩家();
         }
         //
@@ -407,25 +407,23 @@ public class AgesEngine {
     }
 
     private boolean doChangeTurn() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
-//        檢測暴動();
-      
-        
-        field.getCurrentPlayer().compute當回合文化and科技and軍力();   
+        //檢測暴動();
+        field.getCurrentPlayer().compute當回合文化and科技and軍力();
+
         //執行生產
         field.getCurrentPlayer().produce();
 
-//        腐敗();
-//        field.getCurrentPlayer();
-//        field.setCurrentPlayer(field.getP2());
-//        交換玩家();
+        //腐敗();
         field.交換玩家();
-        beforeTurn();
+        // before turn
+        if (field.getRound().getVal() == 1) {
+            return true;
+        }
 
-        //        field.get
-//    private List<Card> ageICivilCards;
-//    ageICivilCards  = new ArrayList<>();
+        field.getCurrentPlayer().update手牌上限();
+        field.getCurrentPlayer().refill內政點數軍事點數();
+        補牌();
         return true;
     }
 
@@ -436,23 +434,13 @@ public class AgesEngine {
         return true;
     }
 
-  
-
-
     private boolean doStatus(int val) {
         field.show(val);
         return true;
     }
 
-    private void beforeTurn() {
-        if (field.getRound().getPoints() == 1) {
-            return;
-        }
-        System.out.println(" ***TODO NEED TO COMPUTE 內政點數 FROM ALL RELATED CARDS, ASSISGN 4 FOR A WHILE");
-        field.getCurrentPlayer().get內政點數().setPoints(4);
-        field.getCurrentPlayer().get軍事點數().setPoints(6);
-
-        System.out.println("在這裡作補牌");
+    private void 補牌() {
+//        System.out.println("在這裡作補牌");
 
 //        移除前三張，實際作法是移除前三張增加三張三張空卡
         field.getCardRow().remove(0);
@@ -520,7 +508,7 @@ public class AgesEngine {
         return name + sb.toString();
     }
 
-    private boolean doList(int val) {
+    private boolean doList(int style) {
 
         Map<Integer, AgesCard> map = new HashMap<>();
 
@@ -535,7 +523,7 @@ public class AgesEngine {
         Collections.sort(idList);
         for (Integer key : idList) {
             AgesCard card = map.get(key);
-            switch (val) {
+            switch (style) {
                 case 1:
                     if (card.getAction().length() > 0) {
                         System.out.println(" " + key + " " + getSameSizeName(card.getName()) + " " + card.getAction());
@@ -554,11 +542,30 @@ public class AgesEngine {
                         System.out.println(" " + key + " " + card.getName() + " " + card.getEffect());
                     }
                     break;
+                case 4:
+                    if (card.getEffectWhite() > 0) {
+                        System.out.println(" " + key + " " + card.getName() + " +白點: " + card.getEffectWhite());
+                    }
+                    break;
+                case 5:
+                    if (card.getEffectRed() > 0) {
+                        System.out.println(" " + key + " " + card.getName() + " +紅點: " + card.getEffectRed());
+                    }
+                    break;
+                case 6:
+                    if (card.getEffectSmile() > 0) {
+                        System.out.println(" " + key + " " + card.getName() + " +笑臉: " + card.getEffectSmile());
+                    }
+                    break;
                 default:
                     System.out.println(" " + key + " " + getSameSizeName(card.getName()) + " " + card.getAction().trim() + " " + card.getIconPoints() + " " + card.getEffect());
 
             }
         }
+        System.out.println("");
+        System.out.println(" list 4      SHOW +白點");
+        System.out.println(" list 5      SHOW +紅點");
+        System.out.println(" list 6      SHOW 笑臉");
 
         return true;
 

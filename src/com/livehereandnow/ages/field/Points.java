@@ -24,11 +24,11 @@ public class Points {
     }
     private int points;
 
-    public int getPoints() {
+    public int getVal() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setVal(int points) {
         this.points = points;
 
     }

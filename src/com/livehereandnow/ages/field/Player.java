@@ -76,7 +76,7 @@ public class Player {
     }
 
     private void produce文化() {
-        get文化().addPoints(get文化生產_當回合().getPoints());
+        get文化().addPoints(get文化生產_當回合().getVal());
     }
 
     private void produce農場() {
@@ -92,7 +92,7 @@ public class Player {
     }
 
     private void produce科技() {
-        get科技().addPoints(get科技生產_當回合().getPoints());
+        get科技().addPoints(get科技生產_當回合().getVal());
     }
 
     public Points get文化() {
@@ -294,8 +294,6 @@ public class Player {
     private String name;
     private Points 內政點數;
     private Points 軍事點數;
-    private Points 回合內政點數;
-    private Points 回合軍事點數;
     private Points 建築上限;
     private Points 內政手牌上限;
     private Points 軍事手牌上限;
@@ -338,8 +336,6 @@ public class Player {
     public void init() {
         內政點數 = new Points("內政點數");
         軍事點數 = new Points("軍事點數");
-        回合內政點數 = new Points("回合內政點數");
-        回合軍事點數 = new Points("回合軍事點數");
 
         建築上限 = new Points("建築上限");
         內政手牌上限 = new Points("內政手牌上限");
@@ -382,7 +378,10 @@ public class Player {
 
     }
 
-    public void update回合內政點數回合軍事點數() {
+    
+    
+    
+    public void update手牌上限() {
         int new回合內政點數 = 政府區.get(0).getEffectWhite();
         int new回合軍事點數 = 政府區.get(0).getEffectRed();
 //            System.out.println(""+政府區.get(0));
@@ -396,11 +395,13 @@ public class Player {
 //                    new回合內政點數++;
                 new回合軍事點數++;
             }
-
         }
 
-        回合內政點數.setPoints(new回合內政點數);
-        回合軍事點數.setPoints(new回合軍事點數);
+        
+        
+        
+        內政手牌上限.setVal(new回合內政點數);
+        軍事手牌上限.setVal(new回合軍事點數);
 
     }
 
@@ -503,8 +504,6 @@ public class Player {
         System.out.println("");
         show(政府區, "政府區");
         show(領袖區, "領袖區");
-        回合內政點數.show();
-        回合軍事點數.show();
 
         show(實驗室, "實驗室");
         show(神廟區, "神廟區");
@@ -582,7 +581,7 @@ public class Player {
         //
         // 06/16 13:30, by Mark
         //
-        update回合內政點數回合軍事點數();
+        update手牌上限();
     }
 
     /**
@@ -658,9 +657,15 @@ public class Player {
         }
 
         // 3. Update result
-        文化生產_當回合.setPoints(音樂);
-        科技生產_當回合.setPoints(燈泡);
-        軍力.setPoints(武器);
+        文化生產_當回合.setVal(音樂);
+        科技生產_當回合.setVal(燈泡);
+        軍力.setVal(武器);
+
+    }
+
+    public void refill內政點數軍事點數() {
+        內政點數.setVal(內政手牌上限.getVal());
+        軍事點數.setVal(軍事手牌上限.getVal());
 
     }
 

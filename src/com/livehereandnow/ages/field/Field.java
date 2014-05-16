@@ -212,7 +212,7 @@ public class Field {
     public void reset() {
         //
         round = new Points("回合");
-        round.setPoints(0);
+        round.setVal(0);
         //
         p1 = new Player("AAA");
         p2 = new Player("BBB");
@@ -270,12 +270,12 @@ public class Field {
             player.get實驗室().get(0).setTokenYellow(1);
             player.get礦山區().get(0).setTokenYellow(2);
             player.get農場區().get(0).setTokenYellow(2);
-            player.get人力庫_黃點().setPoints(18);
-            player.get工人區_黃點().setPoints(1);
-            player.get資源庫_藍點().setPoints(18);
+            player.get人力庫_黃點().setVal(18);
+            player.get工人區_黃點().setVal(1);
+            player.get資源庫_藍點().setVal(18);
 
             //
-            player.update回合內政點數回合軍事點數();
+            player.update手牌上限();
         }
 
     }
@@ -361,9 +361,15 @@ public class Field {
 //        }
 //    }
     public void show(int style) {
-        System.out.println("**********************  回合:" + round.getPoints() + "  Current Player: " + currentPlayer.getName() + " ******************************************************");
+        System.out.println("**********************  回合:" + round.getVal() + "  Current Player: " + currentPlayer.getName() + " ******************************************************");
 
         switch (style) {
+            case 0:
+                show(卡牌列, "卡牌列");
+                allPlayers.stream().forEach((p) -> {
+                    p.show();
+                });
+                break;
             case 1:
                 show(卡牌列, "卡牌列");
                 show(時代A內政牌, "時代A內政牌");

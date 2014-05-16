@@ -13,8 +13,9 @@ public class Main {
 
     private AgesEngine engine;
   
-    public Main() throws AgesException {
+    public Main() throws AgesException, IOException {
         engine = new AgesEngine();
+        engine.doCmd("new-game");
     }
 
     public static void main(String[] args) throws IOException, AgesException {

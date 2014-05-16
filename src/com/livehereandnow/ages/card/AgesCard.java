@@ -673,9 +673,10 @@ public class AgesCard implements Serializable {
 
                 sb8.append(" 藍");
                 sb8.append(this.getTokenBlue());
-                sb8.append(" 效果=>");
+                sb8.append(" #");
                 sb8.append(effect);
-    
+                sb8.append("#");
+
                 sb8.append("] ");
                 return sb8.toString();
             case 2:// 農場區,礦山區
@@ -697,23 +698,6 @@ public class AgesCard implements Serializable {
 //                sb2.append(this.getTokenBlue());
                 sb2.append("] ");
                 return sb2.toString();
-            case 4:// 實驗室,神廟區,步兵區
-                StringBuilder sb4 = new StringBuilder();
-//                System.out.println("");
-                sb4.append("[");
-                sb4.append(ageStr[age]);
-                sb4.append("");
-                sb4.append(name);
-                sb4.append(id);
-                sb4.append("-");
-
-                sb4.append(tag);
-
-                sb4.append(" 黃:");
-                sb4.append(this.tokenYellow);
-
-                sb4.append("] ");
-                return sb4.toString();
             case 3:// for CardNow
                 StringBuilder sb3 = new StringBuilder();
 //                System.out.println("");
@@ -764,11 +748,12 @@ public class AgesCard implements Serializable {
                 sb103.append("");
                 sb103.append(name);
                 sb103.append(id);
-                sb103.append(" 效果=>");
+                sb103.append(" #");
                 sb103.append(effect);
+                sb103.append("#");
                 sb103.append("】 ");
                 return sb103.toString();
-        case 104:// 實驗室 神廟區 步兵區
+            case 104:// 實驗室 神廟區 步兵區
                 StringBuilder sb104 = new StringBuilder();
 //                System.out.println("");
                 sb104.append("【");
@@ -776,7 +761,7 @@ public class AgesCard implements Serializable {
                 sb104.append("");
                 sb104.append(name);
                 sb104.append(id);
-                
+
                 sb104.append(" 黃:");
                 sb104.append(tokenYellow);
                 sb104.append(" #");
