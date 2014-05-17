@@ -237,6 +237,13 @@ public class Player {
                 if (wonderStages.size() == 0) {
 //                    System.out.println("... 奇蹟區 done, move to ...");
                     moveOneCard(建造中的奇蹟區, 0, 已完成的奇蹟);
+                    // possible 【A金字塔1031 #+白點:1#】   
+                    int temp = 內政手牌上限.getVal();
+                    update手牌上限();
+                    if (內政手牌上限.getVal() != temp) {
+                        System.out.println("************* 內政手牌上限 HAS BEEN CHANGED , SHOULD WE ADD 內政點數 TOKEN NOW?????");
+                    }
+
                 }
 
                 return;
@@ -378,31 +385,41 @@ public class Player {
 
     }
 
-    
-    
-    
     public void update手牌上限() {
-        int new回合內政點數 = 政府區.get(0).getEffectWhite();
-        int new回合軍事點數 = 政府區.get(0).getEffectRed();
-//            System.out.println(""+政府區.get(0));
-        if (領袖區.size() == 1) {
-            AgesCard leader = 領袖區.get(0);
-            if (leader.getId() == 1023) {// A漢摩拉比1023-內政行動CA+1 軍事行動MA-1】
-                new回合內政點數++;
-                new回合軍事點數--;
+//        int new回合內政點數 = 政府區.get(0).getEffectWhite();
+//        int new回合軍事點數 = 政府區.get(0).getEffectRed();
+////            System.out.println(""+政府區.get(0));
+//        if (領袖區.size() == 1) {
+//            AgesCard leader = 領袖區.get(0);
+//            if (leader.getId() == 1023) {// A漢摩拉比1023-內政行動CA+1 軍事行動MA-1】
+//                new回合內政點數++;
+//                new回合軍事點數--;
+//            }
+//            if (leader.getId() == 1009) { //【A凱薩1009-軍事力量+1 軍事行動 MA+1】
+////                    new回合內政點數++;
+//                new回合軍事點數++;
+//            }
+//        }
+//        內政手牌上限.setVal(new回合內政點數);
+//        軍事手牌上限.setVal(new回合軍事點數);
+        int white = 0;
+        int red = 0;
+        List<AgesCard> buildList = new ArrayList<>();
+        buildList.addAll(政府區);
+        buildList.addAll(領袖區);
+        buildList.addAll(已完成的奇蹟);
+        for (AgesCard card : buildList) {
+            if (card.getEffectWhite() > 0) {
+                white += card.getEffectWhite();
             }
-            if (leader.getId() == 1009) { //【A凱薩1009-軍事力量+1 軍事行動 MA+1】
-//                    new回合內政點數++;
-                new回合軍事點數++;
+            if (card.getEffectRed() > 0) {
+                red += card.getEffectRed();
             }
+
         }
 
-        
-        
-        
-        內政手牌上限.setVal(new回合內政點數);
-        軍事手牌上限.setVal(new回合軍事點數);
-
+        內政手牌上限.setVal(white);
+        軍事手牌上限.setVal(red);
     }
 
     public void show建造中的奇蹟區Stages() {
