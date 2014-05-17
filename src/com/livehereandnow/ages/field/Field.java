@@ -391,5 +391,13 @@ public class Field {
 
     }
 
+    public String getServerStatus() {
+        StringBuilder sb=new StringBuilder();
+        for (AgesCard card:卡牌列){
+            sb.append(card.getId()).append(",");
+        }
+        return sb.toString();
+    }
+
     
 }

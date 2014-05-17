@@ -10,6 +10,7 @@ import com.livehereandnow.ages.card.AgesCard;
 import com.livehereandnow.ages.exception.AgesException;
 import com.livehereandnow.ages.field.Field;
 import com.livehereandnow.ages.field.Player;
+import com.livehereandnow.ages.server.AgesGameServerJDBC;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +26,7 @@ import java.util.SortedSet;
  * @author mark
  */
 public class AgesEngine {
-
+    private AgesGameServerJDBC server;
 //    private EngineCore core;
     private Field field;
     private Player player;
@@ -36,6 +37,7 @@ public class AgesEngine {
     }
 
     public AgesEngine() throws AgesException {
+        server=new AgesGameServerJDBC();
         init();
 
     }
@@ -181,6 +183,8 @@ public class AgesEngine {
 
     public boolean doCmd(String keyword) throws IOException, AgesException {
         switch (keyword) {
+            case "server":
+                return doServer();
             case "new-game":
                 return doNewGame();
             case "p"://工人區_黃點 
@@ -606,6 +610,13 @@ public class AgesEngine {
 
     private boolean actUpgrade(int p1, int p2) {
         field.getCurrentPlayer().actUpgrade(p1, p2);
+        return true;
+    }
+
+    private boolean doServer() {
+        String idx13=field.getServerStatus();
+        server.updateGameLiveCardRow(idx13);
+        
         return true;
     }
 }
